@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <input class="form-control" type="text" ng-model="newContact.name" />
+    </td>
+    <td>
+      <input class="form-control" type="text" ng-model="newContact.phone" />
+    </td>
+    <td>
+      <input class="form-control" type="text" ng-model="newContact.email" />
+    </td>
+    <td>
+      <button class="btn btn-primary" ng-click="addContact()">Add Contact</button>
+    </td>
+  </tr>
+  <tr ng-repeat="contact in contacts">
+    <td ng-bind="contact.name"></td>
+    <td ng-bind="contact.phone"></td>
+    <td ng-bind="contact.email"></td>
+  </tr>
+  </tbody>
+</table>
