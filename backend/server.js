@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:9000');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 
@@ -33,6 +34,15 @@ app.post('/contacts-list', function(req, res, next) {
   // console.log(newContact);
   // Insert the new data into the DB and returns that new entry.
   db.contactlist.insert(newContact, function(err, docs) {
+    res.json(docs);
+  });
+});
+
+app.delete('/contacts-list/:id', function(req, res) {
+  var id = req.params.id;
+  // console.log(id);
+  // Remove the data by id from the DB.
+  db.contactlist.remove({_id: mongojs.ObjectId(id)}, function(err, docs) {
     res.json(docs);
   });
 });

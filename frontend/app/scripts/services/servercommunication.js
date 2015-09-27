@@ -33,9 +33,21 @@ angular.module('frontendApp')
       return defer.promise;
     };
 
+    var removeContact = function(contact_id) {
+      var defer = $q.defer();
+
+      $http.delete(serverURL + '/contacts-list/' + contact_id).success( function(response) {
+        console.log(response);
+        defer.resolve(response);
+      });
+
+      return defer.promise;
+    };
+
     return {
       getContactsList: getContactsList,
-      addContact: addContact
+      addContact: addContact,
+      removeContact: removeContact
     };
 
 

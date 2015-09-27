@@ -23,4 +23,13 @@ angular.module('frontendApp')
       });
     };
 
+    $scope.removeContact = function(id) {
+      ServerCommunication.removeContact(id).then( function(response) {
+        ServerCommunication.getContactsList().then( function(response) {
+          $scope.contacts = response;
+        });
+
+      });
+    };
+
   });
