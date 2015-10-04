@@ -44,10 +44,34 @@ angular.module('frontendApp')
       return defer.promise;
     };
 
+    var editContact = function(contact_id) {
+      var defer = $q.defer();
+
+      $http.get(serverURL + '/contacts-list/' + contact_id).success( function(response) {
+        console.log(response);
+        defer.resolve(response);
+      });
+
+      return defer.promise;
+    };
+
+    var updateContact = function(contact) {
+      var defer = $q.defer();
+
+      $http.put(serverURL + '/contacts-list/' + contact._id, contact).success( function(response) {
+        console.log(response);
+        defer.resolve(response);
+      });
+
+      return defer.promise;
+    };
+
     return {
       getContactsList: getContactsList,
       addContact: addContact,
-      removeContact: removeContact
+      removeContact: removeContact,
+      editContact: editContact,
+      updateContact: updateContact
     };
 
 

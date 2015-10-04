@@ -29,11 +29,42 @@ app.get('/contacts-list', function(req, res, next) {
   });
 });
 
+app.get('/contacts-list/:id', function(req, res) {
+  var id = req.params.id;
+  db.contactlist.findOne({_id: mongojs.ObjectId(id)}, function(err, docs) {
+    res.json(docs);
+  });
+});
+
 app.post('/contacts-list', function(req, res, next) {
   var newContact = req.body;
   // console.log(newContact);
-  // Insert the new data into the DB and returns that new entry.
+  // Insert the new data into the DB and returns the new entry.
   db.contactlist.insert(newContact, function(err, docs) {
+    res.json(docs);
+  });
+});
+
+// Update contact.
+app.put('/contacts-list/:id', function(req, res) {
+  var id = req.params.id;
+  var name = req.body.name;
+  var email = req.body.email;
+  var phone = req.body.phone;
+
+  db.contactlist.findAndModify({
+    query: {
+      _id: mongojs.ObjectId(id)
+    },
+    update:{
+      $set: {
+        name: name,
+        email: email,
+        phone: phone
+      }
+    },
+    new:true
+  }, function(err, docs) {
     res.json(docs);
   });
 });
